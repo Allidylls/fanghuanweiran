@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Accounts</title>
+<script src="http://weapp.googlecode.com/svn/api/weapp.min.js"></script>
+<script src="app.js"></script>
+    
+<style type="text/css">
+.signin-box {
+    font-size: 14px;
+}
+.signin-box input[type=text],
+.signin-box input[type=password] {
+    width: 100%;
+}
+.signin-box input[type=submit] {
+    margin-top: 10px;
+    width: 128px;
+}
+</style>
+
+<style type="text/css">
+.create-box {
+    font-size: 14px;
+}
+.create-box input[type=text],
+.create-box input[type=password] {
+    width: 100%;
+}
+.create-box input[type=submit] {
+    margin-top: 10px;
+    width: 128px;
+}
+</style>
+
+<style type="text/css">
+.logout-box {
+    font-size: 14px;
+}
+.logout-box input[type=text],
+.logout-box input[type=password] {
+    width: 100%;
+}
+.logout-box input[type=submit] {
+    margin-top: 10px;
+    width: 128px;
+}
+</style>
+</head>
+
+<body>
+<div class="signin-box">
+    <h2>Sign in</h2>
+    <form id="singinform" action="" method="post">
+        <label>
+            Email Address
+            <input type="text" name="Email" id="Email" value="">
+        </label>
+        <label>
+            Password
+            <input  type="password" name="Passwd" id="Passwd">
+        </label>
+        <input type="submit" name="signIn" id="signIn" value="Sign in">
+        <label>
+            <input type="checkbox" name="Remember" id="Remember" value="yes" checked="checked">
+            Remember password
+        </label>
+    </form>
+</div>
+<div class="create-box">
+    <h2>Create an account</h2>
+    <form id="singinform" action="" method="post">
+        <label>
+            Email Address
+            <input type="text" name="Email" id="Email" value="">
+        </label>
+        <label>
+            Password
+            <input  type="password" name="Passwd" id="Passwd">
+        </label>
+        <input type="submit" name="signIn" id="signIn" value="Sign in">
+        <label>
+            <input type="checkbox" name="PersistentCookie" id="PersistentCookie" value="yes" checked="checked">
+            Remember password
+        </label>
+    </form>
+</div>
+<div class="logout-box">
+    <h2>Create an account</h2>
+    <form id="singinform" action="" method="post">
+        <label>
+            Email Address
+            <input type="text" name="Email" id="Email" value="">
+        </label>
+        <label>
+            Password
+            <input  type="password" name="Passwd" id="Passwd">
+        </label>
+        <input type="submit" name="signIn" id="signIn" value="Sign in">
+        <label>
+            <input type="checkbox" name="PersistentCookie" id="PersistentCookie" value="yes" checked="checked">
+            Remember password
+        </label>
+    </form>
+</div>
+</body>
+</html>
+

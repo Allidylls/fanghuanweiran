@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Layer Manager</title>
+<meta charset="utf-8">
+<script src="http://weapp.googlecode.com/svn/api/weapp.min.js"></script>
+
+<style type="text/css">
+body {
+    font-size: 14px;
+}
+</style>
+
+<script>
+WeApp.Layer = Weiran.Class(WeApp, {
+    // {OpenLayers.Control.WeLayerSwitcher}
+    layerSwitcher: null,
+
+    initialize: function (options) {
+        WeApp.prototype.initialize.apply(this, arguments);
+    },
+
+    run: function () {
+        WeApp.prototype.run.apply(this, arguments);
+        
+        // create a WeLayerSwitcher control within the window
+        this.layerSwitcher = new OpenLayers.Control.WeLayerSwitcher();
+        this.layerSwitcher.setMap(this.getMap());
+        document.body.appendChild(this.layerSwitcher.draw());
+    },
+    
+    destroy: function () {
+        // destroy the WeLayerSwitcher control
+        this.layerSwitcher.destroy();
+        this.layerSwitcher = null;
+        
+        WeApp.prototype.destroy.apply(this, arguments);
+    },
+
+    CLASS_NAME: "WeApp.Layer"
+});
+
+var app = null;
+jQuery(window).load(function() {
+    app = new WeApp.Layer();
+    app.run();
+});
+
+jQuery(window).unload(function() {
+    app.destroy();
+    app = null;
+});
+
+</script>
+</head>
+
+<body>
+</body>
+</html>

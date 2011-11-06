@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LLPicker</title>
+<meta charset="utf-8">
+<script src="http://weapp.googlecode.com/svn/api/weapp.min.js"></script>
+
+<style type="text/css">
+body {
+    color: blue;
+    font-size: 14px;
+    padding: 0px;
+}
+table {
+    border: solid 1px black;
+}
+td {
+    width: 200px;
+    height: 20px;
+    border: solid 1px gray;
+}
+</style>
+
+<script>
+WeApp.LLPicker = Weiran.Class(WeApp, {
+
+    initialize: function (options) {
+        WeApp.prototype.initialize.apply(this, arguments);
+    },
+
+    run: function () {
+        WeApp.prototype.run.apply(this, arguments);
+        
+        document.getElementById('title').innerHTML = 'Geocoordinates of current position:';
+        // add a map click event handler
+        this.getMap().events.register('click', this, this.onPick);
+        this.getMap().viewPortDiv.style.cursor = 'crosshair';
+    },
+    
+    onPick: function(e) {
+        var map = this.getMap();
+        map.viewPortDiv.style.cursor = 'crosshair';
+        var ll = map.getLonLatFromPixel(e.xy).transform(map.getProjectionObject(), map.displayProjection);
+        
+        document.getElementById('x1').innerHTML = (ll.lon>0 ? '+' : '') + ll.lon.toFixed(6);
+        document.getElementById('y1').innerHTML = (ll.lat>0 ? '+' : '') + ll.lat.toFixed(6);
+        
+        document.getElementById('x2').innerHTML = Math.abs(ll.lon).toFixed(6) + '&deg; ' + (ll.lon<0?'W':'E'); 
+        document.getElementById('y2').innerHTML = Math.abs(ll.lat).toFixed(6) + '&deg; ' + (ll.lat<0?'S':'N');
+                                                  
+        var latdd,latmm,latss,londd,lonmm,lonss,result;
+        londd = Math.floor(Math.abs(ll.lon));
+        lonmm = Math.floor(Math.abs(ll.lon*60))%60;
+        lonss = Math.abs(ll.lon)*3600 - londd*3600 - lonmm*60;
+        document.getElementById('x3').innerHTML = (londd + '&deg;' + lonmm + "'" + lonss.toFixed(3) + '"' + (ll.lon<0?' W':' E'));
+        latdd = Math.floor(Math.abs(ll.lat));
+        latmm = Math.floor(Math.abs(ll.lat*60))%60;
+        latss = Math.abs(ll.lat)*3600 - latdd*3600 - latmm*60;
+        document.getElementById('y3').innerHTML = (latdd + '&deg;' + latmm + "'" + latss.toFixed(3) + '"' + (ll.lat<0?' S, ':' N, '));
+        
+        document.getElementById('x4').innerHTML = (ll.lon<0?'西经':'东经') + londd +'度'+ lonmm +'分'+ lonss.toFixed(3) +'秒';
+        document.getElementById('y4').innerHTML = (ll.lat<0?'南纬':'北纬') + latdd +'度'+ latmm +'分'+ latss.toFixed(3) +'秒';
+    },
+
+    destroy: function () {
+        // clear the click handler
+        this.getMap().events.unregister('click', this, this.onPick);
+        // reset map cursor to default
+        this.getMap().viewPortDiv.style.cursor = 'default';
+        
+        WeApp.prototype.destroy.apply(this, arguments);
+    },
+
+    CLASS_NAME: "WeApp.LLPicker"
+});
+
+var app = null;
+jQuery(window).load(function() {
+    app = new WeApp.LLPicker();
+    app.run();
+});
+
+jQuery(window).unload(function() {
+    app.destroy();
+    app = null;
+});
+
+</script>
+</head>
+
+<body>
+    <p id='title'></p>
+    <table>
+            <tr><td id='x0'>Longitude</td><td id='y0'>Latitude</td></tr>
+            <tr><td id='x1'></td><td  id='y1'></td></tr>
+            <tr><td id='x2'></td><td  id='y2'></td></tr>
+            <tr><td id='x3'></td><td  id='y3'></td></tr>
+            <tr><td id='x4'></td><td  id='y4'></td></tr>
+    </table>
+</body>
+</html>
