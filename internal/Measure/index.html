@@ -107,7 +107,7 @@ WeApp.Measure = Weiran.Class(WeApp, {
             if(this.value == key && this.checked) {
                 control.activate();
                 // set map cursor to crosshair
-                this.getMap().viewPortDiv.style.cursor = 'crosshair';
+                app.getMap().viewPortDiv.style.cursor = 'crosshair';
             } else {
                 control.deactivate();
             }
