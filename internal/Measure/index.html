@@ -129,7 +129,6 @@ WeApp.Measure = Weiran.Class(WeApp, {
     destroy: function () {
         // reset map cursor to default
         this.getMap().viewPortDiv.style.cursor = 'default';
-        
         // destroy the measure
         var control;
         for(var key in this.measureTools) {
@@ -152,14 +151,9 @@ WeApp.Measure = Weiran.Class(WeApp, {
 });
 
 var app = null;
-jQuery(window).load(function() {
+$(window).load(function() {
     app = new WeApp.Measure();
     app.run();
-});
-
-jQuery(window).unload(function() {
-    app.destroy();
-    app = null;
 });
 
 </script>

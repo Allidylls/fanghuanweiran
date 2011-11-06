@@ -75,14 +75,9 @@ WeApp.LLPicker = Weiran.Class(WeApp, {
 });
 
 var app = null;
-jQuery(window).load(function() {
+$(window).load(function() {
     app = new WeApp.LLPicker();
     app.run();
-});
-
-jQuery(window).unload(function() {
-    app.destroy();
-    app = null;
 });
 
 </script>

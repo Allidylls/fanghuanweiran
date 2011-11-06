@@ -7,11 +7,14 @@ WeApp.User = Weiran.Class(WeApp, {
 
     run: function () {
         WeApp.prototype.run.apply(this, arguments);
-        this.getTheWindow().setState('maximized');
+        this.getAW().moveToCenter();
     },
     
     destroy: function () {
         WeApp.prototype.destroy.apply(this, arguments);
+    },
+    
+    onMove: function(x, y) {
     },
 
     CLASS_NAME: "WeApp.User"
@@ -20,14 +23,9 @@ WeApp.User = Weiran.Class(WeApp, {
 // this application
 var app = null;
 // create and run after loading
-jQuery(window).load(function() {
+$(window).load(function() {
     app = new WeApp.User();
     app.run();
-});
-// stop and clear after leaving
-jQuery(window).unload(function() {
-    app.destroy();
-    app = null;
 });
 
 /*
