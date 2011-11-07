@@ -1,3 +1,4 @@
+
 // class of users
 WeApp.User = Weiran.Class(WeApp, {
 
@@ -21,10 +22,9 @@ WeApp.User = Weiran.Class(WeApp, {
 });
 
 // this application
-var app = null;
-// create and run after loading
-$(window).load(function() {
-    app = new WeApp.User();
+
+$(function() {
+    var app = new WeApp.User();
     app.run();
 });
 

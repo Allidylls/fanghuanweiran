@@ -4,6 +4,7 @@
 <title>Measure Tools</title>
 <meta charset="utf-8">
 <script src="http://weapp.googlecode.com/svn/api/weapp.min.js"></script>
+<script src="http://jpp.googlecode.com/svn/jquery/jquery-1.7.min.js"></script>
 
 <style type="text/css">
 body {
@@ -150,9 +151,8 @@ WeApp.Measure = Weiran.Class(WeApp, {
     CLASS_NAME: "WeApp.Measure"
 });
 
-var app = null;
-$(window).load(function() {
-    app = new WeApp.Measure();
+$(function() {
+    var app = new WeApp.Measure();
     app.run();
 });
 
