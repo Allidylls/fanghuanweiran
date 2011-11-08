@@ -11,7 +11,9 @@
 <style type="text/css">
 body {
     font-size: 14px;
-    text-align: center;
+}
+#update {
+    width: 150px;
 }
 table {
     width: 100%;
@@ -21,7 +23,9 @@ td {
     width: 50%;
     height: 20px;
     border: solid 1px gray;
-    text-align: left;
+}
+#info {
+    text-align: center;
 }
 </style>
 
@@ -47,6 +51,16 @@ WeApp.MyApp = Weiran.Class(WeApp, {
         this.layer = new OpenLayers.Layer.WeSensors("iWhere");
         this.getMap().addLayer(this.layer);
         this.layer.addSensor(this.marker);
+        
+        $("#update").click((function(app){ return function() {
+            if (app.geook) {
+                geo_position_js.getCurrentPosition(
+                    app.onPosUpdate(app),
+                    app.onPosError(app),
+                    {enableHighAccuracy: true}
+                );
+            }
+        }})(this));
     },
 
     run: function () {
@@ -61,7 +75,7 @@ WeApp.MyApp = Weiran.Class(WeApp, {
             );
         } else {
             this.geook = false;
-            document.getElementById('info').innerHTML = "Functionality not available";
+            $('#info').text("Functionality not available");
         }
     },
 
@@ -80,13 +94,20 @@ WeApp.MyApp = Weiran.Class(WeApp, {
         
         document.getElementById('lon').innerHTML = pos.coords.longitude.toFixed(6);
         document.getElementById('lat').innerHTML = pos.coords.latitude.toFixed(6);
-        document.getElementById('time').innerHTML = pos.timestamp;
         
-        document.getElementById('info').innerHTML = "position updated";
+        var dt = new Date(pos.timestamp);
+        $('#time').text(dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate() + " " +
+                        dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds());
+                        
+        $('#info').text('Position updated');
     }},
     
     onPosError: function (app) { return function(err) {
-        document.getElementById('info').innerHTML = err.message;
+        if (err.message) {
+            $('#info').text(err.message);
+        } else {
+            $('#info').text('Failed to update position');
+        }
     }},
 
     CLASS_NAME: "WeApp.MyApp"
@@ -101,12 +122,14 @@ $(function() {
 </head>
 
 <body>
-    <p id='info'></p>
-    <hr />
+    <p>
+        <input type="button" id="update" value="Update" />
+        <span id="time"></span>
+    </p>
     <table id="result">
         <tr><td>longitude</td><td id='lon'></td></tr>
         <tr><td>latitude</td><td id='lat'></td></tr>
-        <tr><td>time</td><td id='time'></td></tr>
     </table>
+    <p id="info"></p>
 </body>
 </html>
