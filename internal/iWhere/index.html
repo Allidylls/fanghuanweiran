@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>iWhere</title>
+<meta charset="utf-8">
+<script src="http://weapp.googlecode.com/svn/api/weapp.min.js"></script>
+<script src="http://code.google.com/apis/gears/gears_init.js"></script>
+<script src="http://jpp.googlecode.com/svn/geo/geo-0.4.8.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+
+<style type="text/css">
+body {
+    font-size: 14px;
+    text-align: center;
+}
+table {
+    width: 100%;
+    border: solid 1px black;
+}
+td {
+    width: 50%;
+    height: 20px;
+    border: solid 1px gray;
+    text-align: left;
+}
+</style>
+
+<script>
+WeApp.MyApp = Weiran.Class(WeApp, {
+    // instanse of OpenLayers.WeSensor
+    marker: null,
+    
+    // layer which contains the marker
+    // instanse of OpenLayers.Layer.WeSensors
+    layer: null,
+    
+    geook: null,
+
+    initialize: function (options) {
+        WeApp.prototype.initialize.apply(this, arguments);
+        
+        this.marker = new OpenLayers.WeSensor({
+            title: "I am here!", 
+            iconurl: "http://fanghuanweiran.googlecode.com/svn/trunk/internal/iWhere/icon.png",
+            notshowpopup: true
+        });
+        this.layer = new OpenLayers.Layer.WeSensors("iWhere");
+        this.getMap().addLayer(this.layer);
+        this.layer.addSensor(this.marker);
+    },
+
+    run: function () {
+        WeApp.prototype.run.apply(this, arguments);
+        
+        if (geo_position_js.init()) {
+            this.geook = true;
+            geo_position_js.getCurrentPosition(
+                this.onPosUpdate(this),
+                this.onPosError(this),
+                {enableHighAccuracy:true}
+            );
+        } else {
+            this.geook = false;
+            document.getElementById('info').innerHTML = "Functionality not available";
+        }
+    },
+
+    destroy: function () {
+        this.getMap().removeLayer(this.layer);
+        this.layer.destroy();
+        this.marker.destroy();
+        
+        WeApp.prototype.destroy.apply(this, arguments);
+    },
+    
+    onPosUpdate: function (app) { return function(pos) {
+        var lonlat = new OpenLayers.LonLat(pos.coords.longitude, pos.coords.latitude);
+        app.marker.updatePosition(lonlat);
+        app.getMap().panTo(lonlat.transform(app.layer.projection, app.getMap().getProjectionObject()));
+        
+        document.getElementById('lon').innerHTML = pos.coords.longitude.toFixed(6);
+        document.getElementById('lat').innerHTML = pos.coords.latitude.toFixed(6);
+        document.getElementById('time').innerHTML = pos.timestamp;
+        
+        document.getElementById('info').innerHTML = "position updated";
+    }},
+    
+    onPosError: function (app) { return function(err) {
+        document.getElementById('info').innerHTML = err.message;
+    }},
+
+    CLASS_NAME: "WeApp.MyApp"
+});
+
+$(function() {
+    var app = new WeApp.MyApp();
+    app.run();
+});
+
+</script>
+</head>
+
+<body>
+    <p id='info'></p>
+    <hr />
+    <table id="result">
+        <tr><td>longitude</td><td id='lon'></td></tr>
+        <tr><td>latitude</td><td id='lat'></td></tr>
+        <tr><td>time</td><td id='time'></td></tr>
+    </table>
+</body>
+</html>
