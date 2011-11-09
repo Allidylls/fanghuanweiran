@@ -6,9 +6,22 @@
 <title>Accounts</title>
 <script src="http://weapp.googlecode.com/svn/api/weapp.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-<script src="http://jpp.googlecode.com/svn/jquery/plugins/validity-1.2.0/jquery.validity.min.js"></script>
+<script src="../../../js/io-0.8.7.js"></script>
+<!--script src="http://jpp.googlecode.com/svn/jquery/plugins/jquery.form-2.87.min.js"></script-->
+<!--script src="http://jpp.googlecode.com/svn/jquery/plugins/validity-1.2.0/jquery.validity.min.js"></script>
 <link  href="http://jpp.googlecode.com/svn/jquery/plugins/validity-1.2.0/jquery.validity.css"/>
-<script src="http://jpp.googlecode.com/svn/jquery/plugins/jquery.form-2.87.min.js"></script>
+<script>
+    switch (Weiran.Lang.getCode()) {
+    case 'zh-CN':
+        Weiran.loadJsFile(
+            document,
+            "http://jpp.googlecode.com/svn/jquery/plugins/validity-1.2.0/l10n/jquery.validity.lang.zh-CN.js"
+        );
+        break;
+    default:
+        break;
+    }
+</script-->
 
 <script src="app.js"></script>
 
@@ -18,7 +31,7 @@
 }
 .signin-box input[type=text],
 .signin-box input[type=password] {
-    width: 100%;
+    width: 99%;
 }
 .signin-box input[type=submit] {
     margin-top: 10px;
@@ -33,7 +46,7 @@
 }
 .create-box input[type=text],
 .create-box input[type=password] {
-    width: 100%;
+    width: 99%;
 }
 .create-box input[type=submit] {
     margin-top: 10px;
@@ -61,57 +74,33 @@
 <body>
 <div class="signin-box">
     <h2>Sign in</h2>
-    <form id="signinform" action="" method="post">
-        <p><label>
+    <p>
+        <label>
             Email Address
             <input type="text" name="Email" id="Email" value="">
-        </label></p>
-        <p><label>
+        </label>
+    </p>
+    <p>
+        <label>
             Password
             <input  type="password" name="Passwd" id="Passwd">
-        </label></p>
-        <p><input type="submit" name="signIn" id="signIn" value="Sign in">
+        </label>
+    </p>
+    <p>
+        <input type="submit" name="signIn" id="signIn" value="Sign in">
         <label>
             <input type="checkbox" name="Remember" id="Remember" value="yes" checked="checked">
             Remember password
-        </label></p>
-    </form>
+        </label>
+    </p>
+    <hr />
+    <p id="info"></p>
 </div>
 <div class="create-box">
     <h2>Create an account</h2>
-    <form id="createform" action="" method="post">
-        <label>
-            Email Address
-            <input type="text" name="Email" id="Email" value="">
-        </label>
-        <label>
-            Password
-            <input  type="password" name="Passwd" id="Passwd">
-        </label>
-        <input type="submit" name="signIn" id="signIn" value="Sign in">
-        <label>
-            <input type="checkbox" name="PersistentCookie" id="PersistentCookie" value="yes" checked="checked">
-            Remember password
-        </label>
-    </form>
 </div>
 <div class="logout-box">
     <h2>Log out</h2>
-    <form id="logoutform" action="" method="post">
-        <label>
-            Email Address
-            <input type="text" name="Email" id="Email" value="">
-        </label>
-        <label>
-            Password
-            <input  type="password" name="Passwd" id="Passwd">
-        </label>
-        <input type="submit" name="signIn" id="signIn" value="Sign in">
-        <label>
-            <input type="checkbox" name="PersistentCookie" id="PersistentCookie" value="yes" checked="checked">
-            Remember password
-        </label>
-    </form>
 </div>
 </body>
 </html>

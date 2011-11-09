@@ -1,31 +1,58 @@
 
 // class of users
-WeApp.User = Weiran.Class(WeApp, {
+WeApp.MyApp = Weiran.Class(WeApp, {
+    // host address of WeUserManager
+    host: null,
+    socket: null,
 
     initialize: function (options) {
         WeApp.prototype.initialize.apply(this, arguments);
+        
+        this.host = "http://localhost:8080/";
+        
+        // check whether a user signed in or not
     },
-
+    
     run: function () {
         WeApp.prototype.run.apply(this, arguments);
         this.getAW().moveToCenter();
+        
+        // create a socket and connect host
+        this.socket = io.connect(this.host);
+        this.socket.on('connect', this.onConnet(this));
+        this.socket.on('disconnect', this.onDisconnet(this));
+        
+        //
     },
     
     destroy: function () {
         WeApp.prototype.destroy.apply(this, arguments);
+        
+        this.socket.disconnect();
+        this.socket = null;
     },
     
-    onMove: function(x, y) {
-    },
+    onConnet: function(app) { return function() {
+        $(".signin-box #info").text("connected to " + app.host);
+    }},
+    
+    onDisconnet: function(app) { return function() {
+        $(".signin-box #info").text("disconnect " + app.host);
+    }},
 
-    CLASS_NAME: "WeApp.User"
+    CLASS_NAME: "WeApp.MyApp"
 });
 
 // this application
 
 $(function() {
-    var app = new WeApp.User();
+    var app = new WeApp.MyApp();
     app.run();
+    
+    $('#signIn').click(function() {
+        $(".signin-box").hide();
+        $(".logout-box").show();
+    });
 });
 
 /*
