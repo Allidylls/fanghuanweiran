@@ -4,7 +4,6 @@
 <title>iWhere</title>
 <meta charset="utf-8">
 <script src="http://weapp.googlecode.com/svn/api/weapp.min.js"></script>
-<script src="http://code.google.com/apis/gears/gears_init.js"></script>
 <script src="http://jpp.googlecode.com/svn/geo/geo-0.4.8.min.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
 
@@ -75,7 +74,19 @@ WeApp.MyApp = Weiran.Class(WeApp, {
             );
         } else {
             this.geook = false;
-            $('#info').text("Functionality not available");
+            $('#info').text("Odd browser, use geoip instead ...");
+            $.getScript("http://j.maxmind.com/app/geoip.js", (function(app) { return function() {
+                var lonlat = new OpenLayers.LonLat(geoip_longitude(), geoip_latitude());
+                app.marker.updatePosition(lonlat);
+                app.getMap().panTo(lonlat.transform(app.layer.projection, app.getMap().getProjectionObject()));
+                document.getElementById('lon').innerHTML = geoip_longitude();
+                document.getElementById('lat').innerHTML = geoip_latitude();
+                var dt = new Date();
+                $('#time').text(dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate() + " " +
+                            dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds());
+                        
+                $('#info').text('Position updated');
+            }})(this));
         }
     },
 
