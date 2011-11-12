@@ -74,19 +74,20 @@ WeApp.MyApp = Weiran.Class(WeApp, {
             );
         } else {
             this.geook = false;
-            $('#info').text("Odd browser, use geoip instead ...");
-            $.getScript("http://j.maxmind.com/app/geoip.js", (function(app) { return function() {
-                var lonlat = new OpenLayers.LonLat(geoip_longitude(), geoip_latitude());
-                app.marker.updatePosition(lonlat);
-                app.getMap().panTo(lonlat.transform(app.layer.projection, app.getMap().getProjectionObject()));
-                document.getElementById('lon').innerHTML = geoip_longitude();
-                document.getElementById('lat').innerHTML = geoip_latitude();
+            $('#info').text("Odd browser, functionality not available");
+            // positioning with geoip
+            if (typeof parent.window.geoip_latitude === 'function') {
+                var lonlat = new OpenLayers.LonLat(parent.window.geoip_longitude(), parent.window.geoip_latitude());
+                this.marker.updatePosition(lonlat);
+                this.getMap().panTo(lonlat.transform(this.layer.projection, this.getMap().getProjectionObject()));
+                document.getElementById('lon').innerHTML = parent.window.geoip_longitude();
+                document.getElementById('lat').innerHTML = parent.window.geoip_latitude();
                 var dt = new Date();
                 $('#time').text(dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate() + " " +
                             dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds());
                         
                 $('#info').text('Position updated');
-            }})(this));
+            }
         }
     },
 
