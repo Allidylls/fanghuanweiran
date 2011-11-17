@@ -1,0 +1,930 @@
+/* OpenLayers and WeToolkits */
+/*---------------------------*/
+div.olMap {
+    z-index: 0;
+    padding: 0!important;
+    margin: 0!important;
+    cursor: default;
+    font-family: Monospace, Arial;
+    background-color: #B5D0D0;
+}
+
+div.olMapViewport {
+    text-align: left;
+}
+
+div.olLayerDiv {
+   -moz-user-select: none;
+   -khtml-user-select: none;
+}
+
+/**
+ * Google maps
+ */
+.olLayerGoogleCopyright {
+    right: 35px;
+    bottom: 0px;
+    left: auto;
+}
+.olLayerGooglePoweredBy {
+    left: 2px;
+    bottom: 2px;
+}
+.olLayerGoogleV3.olLayerGoogleCopyright {
+    bottom: 0px;
+    right: 35px !important;
+}
+.olLayerGoogleV3.olLayerGooglePoweredBy {
+    bottom: 0px !important;
+}
+
+/**
+ * Pan zoom
+ */
+.olControlPanZoom {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 64px;
+    height: 200px;
+    border: solid 1px red;
+}
+.olControlPanZoom .panup,
+.olControlPanZoom .panleft,
+.olControlPanZoom .panright,
+.olControlPanZoom .pandown,
+.olControlPanZoom .zoomin,
+.olControlPanZoom .zoomworld,
+.olControlPanZoom .zoomout {
+    position: absolute;
+    height: 24px;
+    width: 24px;
+    background-image: url(img/pan-zoom.png);
+}
+.olControlPanZoom .panup {
+    top: 0px;
+    left: 12px;
+    background-position: 0px 0px;
+}
+.olControlPanZoom .panleft {
+    top: 24px;
+    left: 0px;
+    background-position: 0px -24px;
+}
+.olControlPanZoom .panright {
+    top: 24px;
+    left: 24px;
+    background-position: -24px -24px;
+}
+.olControlPanZoom .pandown {
+    top: 48px;
+    left: 12px;
+    background-position: -24px 0px;
+}
+.olControlPanZoom .zoomin {
+    top: 80px;
+    left: 12px;
+    background-position: -48px 0px;
+}
+.olControlPanZoom .zoomworld {
+    top: 104px;
+    left: 12px;
+    background-position: -72px 0px;
+}
+.olControlPanZoom .zoomout {
+    top: 128px;
+    left: 12px;
+    background-position: -48px -24px;
+}
+
+/**
+ * Attribution
+ */
+.olControlAttribution {
+    font-size: smaller; 
+    right: 35px; 
+    bottom: 0px; 
+    position: absolute; 
+    display: block;
+}
+
+/**
+ * Scale
+ */
+.olControlScale {
+    right: 3px;
+    bottom: 3em;
+    display: block;
+    position: absolute;
+    font-size: smaller;
+}
+
+/**
+ * Scale line
+ */
+.olControlScaleLine {
+   display: block;
+   position: absolute;
+   left: 0px;
+   bottom: 0px;
+   font-size: 12px;
+   color: blue;
+}
+.olControlScaleLineBottom {
+   border: solid 2px blue;
+   border-bottom: none;
+   margin-top:-2px;
+   text-align: center;
+   height: 16px;
+}
+.olControlScaleLineTop {
+   border: solid 2px blue;
+   border-top: none;
+   text-align: center;
+   height: 16px;
+}
+
+/**
+ * Permanent link
+ */
+.olControlPermalink {
+    right: 3px;
+    bottom: 1.5em;
+    display: block;
+    position: absolute;
+    font-size: smaller;
+} 
+
+/**
+ * Mouse position
+ */
+div.olControlMousePosition {
+    position: absolute;
+    bottom: 16px;
+    right: 35px;
+    display: block;
+    font-size: smaller;
+    color: blue;
+}
+
+/**
+* Loading Panel
+*/
+.olControlLoadingPanel {
+    background-image: url(img/loading.gif);
+    position: absolute;
+    top: 0px;
+    right: 35px;
+    width: 32px;
+    height: 32px;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: none;
+}
+
+.olLayerGeoRSSDescription {
+    float:left;
+    width:100%;
+    overflow:auto;
+    font-size:1.0em;
+}
+.olLayerGeoRSSClose {
+    float:right;
+    color:gray;
+    font-size:1.2em;
+    margin-right:6px;
+    font-family:sans-serif;
+}
+.olLayerGeoRSSTitle {
+    float:left;font-size:1.2em;
+}
+
+.olControlNavToolbar { 
+    width: 0;
+    height: 0;
+}    
+.olControlNavToolbar div { 
+  display:block;
+  width:  28px;
+  height: 28px;
+  top: 130px;
+  left: 12px;
+  position: relative;
+}
+
+.olControlNavigationHistory {
+   background-image: url(img/navigation_history.png);
+   background-repeat: no-repeat;
+   width:  24px;
+   height: 24px;
+
+}
+.olControlNavigationHistoryPreviousItemActive { 
+  background-position: 0 0;
+}
+.olControlNavigationHistoryPreviousItemInactive { 
+   background-position: 0 -24px;
+}
+.olControlNavigationHistoryNextItemActive { 
+   background-position: -24px 0;
+}
+.olControlNavigationHistoryNextItemInactive { 
+   background-position: -24px -24px;
+}
+
+.olControlNavToolbar .olControlNavigationItemActive { 
+  background-image: url(img/panning-hand-on.png);
+  background-repeat: no-repeat;
+}
+.olControlNavToolbar .olControlNavigationItemInactive { 
+  background-image: url(img/panning-hand-off.png);
+  background-repeat: no-repeat;
+}
+.olControlNavToolbar .olControlZoomBoxItemActive { 
+  background-image: url(img/drag-rectangle-on.png);
+  background-color: orange;
+  background-repeat: no-repeat;
+}
+.olControlNavToolbar .olControlZoomBoxItemInactive { 
+  background-image: url(img/drag-rectangle-off.png);
+  background-repeat: no-repeat;
+}
+.olControlEditingToolbar  {
+    float:right;
+    right: 0;
+    height: 30px; 
+    width: 200px;
+}
+.olControlEditingToolbar div { 
+  background-image: url(img/editing_tool_bar.png);
+  background-repeat: no-repeat;
+  float:right;
+  width:  24px;
+  height: 24px;
+  margin: 5px;
+}
+.olControlEditingToolbar .olControlNavigationItemActive { 
+  background-position: -103px -23px; 
+}
+.olControlEditingToolbar .olControlNavigationItemInactive { 
+  background-position: -103px 0; 
+}
+.olControlEditingToolbar .olControlDrawFeaturePointItemActive { 
+  background-position: -77px -23px; 
+}
+.olControlEditingToolbar .olControlDrawFeaturePointItemInactive { 
+  background-position: -77px 0; 
+}
+.olControlEditingToolbar .olControlDrawFeaturePathItemInactive { 
+  background-position: -51px 0; 
+}
+.olControlEditingToolbar .olControlDrawFeaturePathItemActive { 
+  background-position: -51px -23px; 
+}
+.olControlEditingToolbar .olControlDrawFeaturePolygonItemInactive { 
+  background-position: -26px 0; 
+}
+.olControlEditingToolbar .olControlDrawFeaturePolygonItemActive { 
+  background-position: -26px -23px ;                                                                   
+}
+div.olControlSaveFeaturesItemActive { 
+    background-image: url(img/save_features_on.png);
+    background-repeat: no-repeat;
+    background-position: 0 1px;
+}
+div.olControlSaveFeaturesItemInactive { 
+    background-image: url(img/save_features_off.png);
+    background-repeat: no-repeat;
+    background-position: 0 1px;
+}
+
+.olHandlerBoxZoomBox {
+    border: 2px solid red;
+    position: absolute;
+    background-color: white;
+    opacity: 0.50;
+    font-size: 1px;
+    filter: alpha(opacity=50);
+}
+.olHandlerBoxSelectFeature {
+    border: 2px solid blue;
+    position: absolute;
+    background-color: white;
+    opacity: 0.50;
+    font-size: 1px;
+    filter: alpha(opacity=50);
+}   
+
+/* Pan Panel */
+.olControlPanPanel {
+    top: 0px;
+    left: 0px;
+}
+.olControlPanPanel div {
+    background-image: url(img/pan-panel.png);
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    position: absolute;
+}
+.olControlPanPanel .olControlPanWestItemInactive {
+    top: 0px;
+    left: 0px;
+    background-position: 0px 0px;
+}
+.olControlPanPanel .olControlPanNorthItemInactive {
+    top: 0px;
+    left: 32px;
+    background-position: -32px 0px;
+}
+.olControlPanPanel .olControlPanSouthItemInactive {
+    top: 0px;
+    left: 64px;
+    background-position: -64px 0px;
+}
+.olControlPanPanel .olControlPanEastItemInactive {
+    top: 0px;
+    left: 96px;
+    background-position: 32px 0px;
+}
+
+/* Zoom Panel */
+.olControlZoomPanel {
+    top: 0px;
+    left: 128px;
+}
+.olControlZoomPanel div {
+    background-image: url(img/zoom-panel.png);
+    position: absolute;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+}
+.olControlZoomPanel .olControlZoomInItemInactive {
+    top: 0;
+    left: 0;
+    background-position: 0 0;
+}
+.olControlZoomPanel .olControlZoomToMaxExtentItemInactive {
+    display: none; /*hide this button*/
+    top: 0px;
+    left: 32px;
+    background-position: 0 -24px;
+}
+.olControlZoomPanel .olControlZoomOutItemInactive {
+    top: 0px;
+    left: 32px;
+    background-position: 0 32px;
+}
+
+.olControlNoSelect {
+ -moz-user-select: none;
+ -khtml-user-select: none;
+}
+
+/**
+ * Weiran Overview map
+ */
+.olControlWeOverviewMapContainer {
+    position: absolute;
+    bottom: 0px;
+    right: 35px;
+}
+.olControlWeOverviewMapElement {
+    padding: 3px;
+    background-color: blue;
+    -moz-border-radius: 0.6em 0 0 0;
+}
+.olControlWeOverviewMapMinimizeButton,
+.olControlWeOverviewMapMaximizeButton {
+    position: absolute;
+    bottom: 0px;
+    right: -35px;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    background-image: url(img/buttons.png);
+}
+.olControlWeOverviewMapMaximizeButton {
+    background-position: -32px 0;
+}
+.olControlWeOverviewMapMinimizeButton {
+    background-position: -32px -32px;
+}
+.olControlWeOverviewMapExtentRectangle {
+    overflow: hidden;
+    background-image: url(img/blank.gif);
+    cursor: move;
+    border: 2px dotted red;
+}
+.olControlWeOverviewMapRectReplacement {
+    overflow: hidden;
+    cursor: move;
+    background-image: url(img/overview_replacement.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/**
+ * Weiran Search
+ */
+.olControlWeSearch {
+    position: absolute;
+    bottom: 0px;
+    right: 35px;
+}
+.olControlWeSearch .mainDiv {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 200px;
+    height: 240px;
+    background-color: white;
+    border: solid 2px blue;
+    font-family: sans-serif;
+    font-size: smaller;
+}
+.olControlWeSearch .mainDiv .formDiv {
+    height: 32px;
+}
+.olControlWeSearch .mainDiv .formDiv .formText {
+    height: 28px;
+    width: 192px;
+    margin: 2px;
+    border: solid 1px gray;
+}
+.olControlWeSearch .mainDiv .formDiv .formButton {
+    height: 32px;
+    width: 32px;
+    border: none;
+    background-image: url(img/buttons.png);
+    background-position: -160px 0px;
+    background-color: transparent;
+    cursor: pointer;
+}
+.olControlWeSearch .mainDiv .resultDiv {
+    height: 268px;
+    overflow: auto;
+    padding: 2px;
+}
+.olControlWeSearch .maximizeDiv,
+.olControlWeSearch .minimizeDiv {
+    position: absolute;
+    bottom: 96px;
+    right: -35px;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    background-image: url(img/buttons.png);
+}
+.olControlWeSearch .maximizeDiv {
+    background-position: -160px 0px;
+}
+.olControlWeSearch .minimizeDiv {
+    background-position: -160px -32px;
+}
+
+/**
+ * Weiran Layer switcher
+ */
+.olControlWeLayerSwitcher {
+}
+.olControlWeLayerSwitcher .layersDiv {
+    font-family: sans-serif;
+    font-size: smaller;
+}
+.olControlWeLayerSwitcher .layersDiv .baseLbl,
+.olControlWeLayerSwitcher .layersDiv .dataLbl {
+    margin-top: 5px;
+    font-weight: bold;
+}
+.olControlWeLayerSwitcher .layersDiv .baseLayersDiv,
+.olControlWeLayerSwitcher .layersDiv .dataLayersDiv {
+    padding-left: 10px;
+}
+.olControlWeLayerSwitcher .labelSpan:hover {
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/**
+ * Weiran Main Panel
+ */
+.olControlWeMainPanel {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 32px;
+    width: 32px;
+}
+.olControlWeMainPanel .mainDiv {
+    position: absolute;
+    top: 32px;
+    right: 0px;
+    width: 32px;
+    bottom: 0px;
+}
+.olControlWeMainPanel .maximizeDiv, .olControlWeMainPanel .minimizeDiv {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    background-image: url(img/buttons.png);
+}
+.olControlWeMainPanel .maximizeDiv {
+    background-position: -192px 0px;
+}
+.olControlWeMainPanel .minimizeDiv {
+    background-position: -192px -32px;
+}
+.olControlWeMainPanel .upDiv, .olControlWeMainPanel .downDiv {
+    position: absolute;
+    right: 0px;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    background-image: url(img/buttons.png);
+}
+.olControlWeMainPanel .upDiv {
+    top: 0px;
+    background-position: -256px 0px;
+}
+.olControlWeMainPanel .downDiv {
+    bottom: 0px;
+    background-position: -256px -32px;
+}
+.olControlWeMainPanel .menusDiv {
+    position: absolute;
+    top: 32px;
+    right: 0px;
+    bottom: 32px;
+    width: 32px;
+    overflow: hidden;
+    border: none;
+    border-left: solid 1px blue;
+}
+.olControlWeMainPanel .menusDiv div {
+    height: 32px;
+    width: 32px;
+    background-image: url(img/app_icon_default.png);
+    cursor: pointer;
+}
+.olControlWeMainPanel .menusDiv div:hover {
+    border-top: solid 1px blue;
+    border-bottom: solid 1px blue;
+}
+
+/**
+ * Weiran Editor
+ */
+.olControlWeEditor {
+    position: absolute;
+    top: 0px;
+    right: 64px;
+}
+.olControlWeEditor .mainDiv {
+    position: absolute;
+    top: 35px;
+    right: -64px;
+    width: 224px;
+    height: 100px;
+    background-color: white;
+    border: solid 3px blue;
+    font-family: sans-serif;
+    font-size: smaller;
+}
+.olControlWeEditor .maximizeDiv, .olControlWeEditor .minimizeDiv {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    background-image: url(img/buttons.png);
+}
+.olControlWeEditor .maximizeDiv {
+    background-position: -224px 0px;
+}
+.olControlWeEditor .minimizeDiv {
+    background-position: -224px -32px;
+}
+
+
+/*
+ * WeTextIcon
+ */
+.olWeTextIcon {
+    text-decoration: underline;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/*
+ * Popup
+ */
+.olPopup {
+}
+
+.olPopupContent {
+    margin: 0px;
+    padding:5px;
+    overflow: auto;
+} 
+.olPopupCloseBox {
+    background-image: url(img/popups.png);
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    cursor: pointer;
+}
+.olFramedCloudPopupContent {
+    padding: 5px;
+    overflow: auto;
+}
+
+/*
+ * WePopup
+ */
+.olWePopupContent {
+    padding: 5px;
+    overflow: auto;
+}
+.olWePopupPinBoxUp {
+    background-image: url(img/popups.png);
+    background-repeat: no-repeat;
+    background-position: -17px 0px;
+    cursor: pointer;
+}
+.olWePopupPinBoxDown {
+    background-image: url(img/popups.png);
+    background-repeat: no-repeat;
+    background-position: -17px -17px;
+    cursor: pointer;
+}
+
+.olImageLoadError {
+    background-color: blue;
+    opacity: 0.5;
+    filter: alpha(opacity=50); /* IE */
+}
+
+/*
+ * Weiran modal dialog
+ */
+.olWeModalDialog {
+    font-family: Monospace, Arial;
+    font-size: 14px;
+    margin: 10px;
+}
+
+/**
+ * Cursor styles
+ */
+.olCursorWait {
+    cursor: wait;
+}
+.olDragDown {
+    cursor: move;
+}
+.olDrawBox {
+    cursor: crosshair;
+}
+.olControlDragFeatureOver {
+    cursor: move;
+}
+.olControlDragFeatureActive.olControlDragFeatureOver.olDragDown {
+    cursor: -moz-grabbing;
+}
+
+.olBingAttribution {
+    color: #DDD;
+}
+.olBingAttribution.road {
+    color: #333;
+}
+
+/**
+ * Weiran Sensor GT02A
+ */
+.olWeGT02A {
+    position: absolute;
+    width: 240px;
+    height: 140px;
+    background-image: url(img/wegt02a.png);
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+.olWeGT02ATitle {
+    position: absolute;
+    padding: 0px;
+    top: 0px;
+    left: 16px;
+    height: 16px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    white-space:nowrap;
+    overflow: hidden;
+}
+.olWeGT02APower, .olWeGT02AGSM, .olWeGT02AGNSS {
+    position: absolute;
+    top: 0px;
+    width: 16px;
+    height: 16px;
+}
+.olWeGT02APower {
+    left: 166px;
+}
+.olWeGT02AGSM {
+    left: 193px;
+}
+.olWeGT02AGNSS {
+    left: 220px;
+}
+.olWeGT02AVelocity {
+    position: absolute;
+    top: 20px;
+    left: 36px;
+}
+.olWeGT02ACourse {
+    position: absolute;
+    top: 20px;
+    left: 194px;
+}
+.olWeGT02ATime {
+    position: absolute;
+    top: 40px;
+    left: 78px;
+    width: 80px;
+    height: 26px;
+    color: blue;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+.olWeGT02AAddress, .olWeGT02ATrack, .olWeGT02AHistory {
+    position: absolute;
+    top: 110px;
+    height: 30px;
+    width: 50px;
+    font-size: 12px;
+    color: blue;
+    cursor: pointer;
+    text-align: center;
+}
+.olWeGT02AAddress {
+    left: 0px;
+}
+.olWeGT02ATrack {
+    left: 50px;
+}
+.olWeGT02AHistory {
+    left: 100px;
+}
+/* firefox style subclass must fit patten: dom.class:subclass */
+div.olWeGT02AAddress:hover, div.olWeGT02ATrack:hover, div.olWeGT02AHistory:hover {
+    color: red;
+    text-decoration: underline;
+}
+
+/**
+ * Weiran Sensorized Account
+ */
+div.olWeAccount {
+    position: absolute;
+    width: 300px;
+    height: 60px;
+    overflow: hidden;
+}
+div.olWeAccountTitle {
+    position: absolute;
+    padding: 0px;
+    top: 0px;
+    left: 0px;
+    height: 16px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    white-space:nowrap;
+    overflow: hidden;
+}
+.olWeAccountAct {
+    position: absolute;
+    top: 20px;
+    left: 0px;
+    height: 20px;
+    width: 100%;
+    font-size: 13px;
+    overflow: hidden;
+}
+.olWeAccountAct a {
+    margin-right: 10px;
+}
+.olWeAccountLog {
+    position: absolute;
+    top: 40px;
+    left: 0px;
+    width: 100%;
+    font-size: 12px;
+    overflow: hidden;
+    border-bottom: solid 1px gray;
+}
+
+/* JWIM - JS Window Manager */
+/*--------------------------*/
+.JMWindow,.activeJMWindow{
+	position:absolute;
+	background-color:#f1f1fa;
+	-moz-border-radius:9px;
+	-webkit-border-radius:9px;	
+}
+
+.JMWindow{border:2px solid #E3E4FA;}
+.activeJMWindow{border:2px solid #95B9C7;}
+
+.JMWindow .title, .activeJMWindow .title{
+	margin:0px;
+	font-family: Monospace, Arial;
+	text-align:left;
+	font-size: 14px;
+	font-weight: bold;
+	-moz-border-radius-topleft:5px;
+	-moz-border-radius-topright:5px;
+	-webkit-border-top-left-radius:5px;
+	-webkit-border-top-right-radius:5px;
+	border-top:0;
+	padding-top:2px;
+	padding-bottom:1px;
+	height:18px;
+	padding-left:5px;
+}
+
+.JMWindow .title{background-color:#f1f1fa;border:1px solid #f1f1fa;border-top:0;}
+.activeJMWindow .title{background-color:#E3E4FA;border:1px solid #87AFC7;border-top:0;}
+
+.JMWindow .content, .activeJMWindow .content{	
+	background-color:#fff;
+	overflow: hidden;
+	padding: 0px;
+}
+
+.content .frame {
+    border:none;
+    width:100%;
+    height:100%;
+}
+
+.JMCloseBox {
+    background-image:url(img/jwim_icons.png);
+    background-position: 0px 0px;
+    cursor: pointer;
+}
+
+.JMMaxBox {
+    background-image:url(img/jwim_icons.png);
+    background-position: 0px -16px;
+    cursor: pointer;
+}
+
+.JMIconBox {
+    background-image:url(img/jwim_icons.png);
+    background-position: -16px 0px;
+    cursor: pointer;
+}
+
+.JMResizeBox {
+    background-image:url(img/jwim_icons.png);
+    background-position: -16px -16px;
+    cursor: se-resize;
+}
+
+.JMLoading {
+    background-image:url(img/jwim_loading.gif);
+}
+.JMIcon, .activeJMIcon{
+	position:relative;
+	height:15px;
+	float:left;
+	margin-left:10px;
+	background-color:#000;
+	color:#fff;
+	cursor:default;
+	padding:3px;
+	font-size:13px;
+	overflow:hidden;
+}
+.JMIcon{	
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border:2px solid #999;
+	line-height:10px;
+}
+
+.activeJMIcon{	
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border:2px solid #fff;
+	line-height:15px;
+}
