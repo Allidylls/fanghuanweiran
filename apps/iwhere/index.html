@@ -34,7 +34,7 @@ WeApp.MyApp = Weiran.Class(WeApp, {
     marker: null,
     
     // layer which contains the marker
-    // instanse of OpenLayers.Layer.WeSensors
+    // instanse of OpenLayers.Layer.WeMarkers
     layer: null,
     
     geook: null,
@@ -44,12 +44,11 @@ WeApp.MyApp = Weiran.Class(WeApp, {
         
         this.marker = new OpenLayers.WeSensor({
             title: "I am here!", 
-            iconurl: "http://fanghuanweiran.googlecode.com/svn/trunk/apps/iwhere/icon.png",
-            notshowpopup: true
+            iconurl: "http://fanghuanweiran.googlecode.com/svn/trunk/apps/iwhere/icon.png"
         });
-        this.layer = new OpenLayers.Layer.WeSensors("iWhere");
+        this.layer = new OpenLayers.Layer.WeMarkers("iWhere");
         this.getMap().addLayer(this.layer);
-        this.layer.addSensor(this.marker);
+        this.layer.addMarker(this.marker);
         
         $("#update").click((function(app){ return function() {
             if (app.geook) {
