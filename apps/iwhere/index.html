@@ -42,7 +42,7 @@ WeApp.MyApp = Weiran.Class(WeApp, {
     initialize: function (options) {
         WeApp.prototype.initialize.apply(this, arguments);
         
-        this.marker = new OpenLayers.WeSensor({
+        this.marker = new OpenLayers.WeMarker({
             title: "I am here!", 
             iconurl: "http://fanghuanweiran.googlecode.com/svn/trunk/apps/iwhere/icon.png"
         });
