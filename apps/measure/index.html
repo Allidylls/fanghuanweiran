@@ -4,7 +4,6 @@
 <title>Measure Tools</title>
 <meta charset="utf-8">
 <script src="http://weapp.googlecode.com/svn/api/weapp.min.js"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
 
 <style type="text/css">
 body {
@@ -22,7 +21,7 @@ form {
 </style>
 
 <script>
-WeApp.Measure = Weiran.Class(WeApp, {
+WeApp.Measure = top.Weiran.Class(WeApp, {
     // {OpenLayers.Control.Measure}
     measureTools: null,
 
@@ -66,23 +65,23 @@ WeApp.Measure = Weiran.Class(WeApp, {
                     fillOpacity: 0.2
             }
         };
-        var style = new OpenLayers.Style();
+        var style = new top.OpenLayers.Style();
         style.addRules([
-            new OpenLayers.Rule({symbolizer: sketchSymbolizers})
+            new top.OpenLayers.Rule({symbolizer: sketchSymbolizers})
         ]);
-        var styleMap = new OpenLayers.StyleMap({"default": style});
+        var styleMap = new top.OpenLayers.StyleMap({"default": style});
         
         // create measure controls
         this.measureTools = {
-            line: new OpenLayers.Control.Measure(
-                OpenLayers.Handler.Path, {
+            line: new top.OpenLayers.Control.Measure(
+                top.OpenLayers.Handler.Path, {
                     'geodesic': true,
                     'persist': true, 
                     'handlerOptions': {'layerOptions': {'styleMap': styleMap}}
                 }
             ),
-            area: new OpenLayers.Control.Measure(
-                OpenLayers.Handler.Polygon, {
+            area: new top.OpenLayers.Control.Measure(
+                top.OpenLayers.Handler.Polygon, {
                     'geodesic': true,
                     'persist': true,
                     'handlerOptions': {'layerOptions': {'styleMap': styleMap}}
@@ -150,12 +149,6 @@ WeApp.Measure = Weiran.Class(WeApp, {
 
     CLASS_NAME: "WeApp.Measure"
 });
-
-$(function() {
-    var app = new WeApp.Measure();
-    app.run();
-});
-
 </script>
 </head>
 
@@ -168,5 +161,9 @@ $(function() {
     </form></p>
     <hr />
     <p id='result'>Measure Result</p>
+<script>
+    var app = new WeApp.Measure();
+    app.run();
+</script>
 </body>
 </html>

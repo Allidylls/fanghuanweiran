@@ -4,7 +4,6 @@
 <title>Layer Manager</title>
 <meta charset="utf-8">
 <script src="http://weapp.googlecode.com/svn/api/weapp.min.js"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
 
 <style type="text/css">
 body {
@@ -13,7 +12,7 @@ body {
 </style>
 
 <script>
-WeApp.Layer = Weiran.Class(WeApp, {
+WeApp.Layer = top.Weiran.Class(WeApp, {
     // {OpenLayers.Control.WeLayerSwitcher}
     layerSwitcher: null,
 
@@ -25,9 +24,12 @@ WeApp.Layer = Weiran.Class(WeApp, {
         WeApp.prototype.run.apply(this, arguments);
         
         // create a WeLayerSwitcher control within the window
-        this.layerSwitcher = new OpenLayers.Control.WeLayerSwitcher();
+        this.layerSwitcher = new top.OpenLayers.Control.WeLayerSwitcher();
         this.layerSwitcher.setMap(this.getMap());
-        document.body.appendChild(this.layerSwitcher.draw());
+        var div = this.layerSwitcher.draw();
+        if (div) {
+            document.body.appendChild(this.layerSwitcher.draw());
+        }
     },
     
     destroy: function () {
@@ -40,15 +42,13 @@ WeApp.Layer = Weiran.Class(WeApp, {
 
     CLASS_NAME: "WeApp.Layer"
 });
-
-$(function() {
-    var app = new WeApp.Layer();
-    app.run();
-});
-
 </script>
 </head>
 
 <body>
+<script>
+    var app = new WeApp.Layer();
+    app.run();
+</script>
 </body>
 </html>

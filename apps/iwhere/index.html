@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <script src="http://weapp.googlecode.com/svn/api/weapp.min.js"></script>
 <script src="http://jpp.googlecode.com/svn/geo/geo-0.4.8.min.js"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
 
 <style type="text/css">
 body {
@@ -29,7 +28,7 @@ td {
 </style>
 
 <script>
-WeApp.MyApp = Weiran.Class(WeApp, {
+WeApp.MyApp = top.Weiran.Class(WeApp, {
     // instanse of OpenLayers.WeSensor
     marker: null,
     
@@ -42,15 +41,15 @@ WeApp.MyApp = Weiran.Class(WeApp, {
     initialize: function (options) {
         WeApp.prototype.initialize.apply(this, arguments);
         
-        this.marker = new OpenLayers.WeMarker({
+        this.marker = new top.OpenLayers.WeMarker({
             title: "I am here!", 
             iconurl: "http://fanghuanweiran.googlecode.com/svn/trunk/apps/iwhere/icon.png"
         });
-        this.layer = new OpenLayers.Layer.WeMarkers("iWhere");
+        this.layer = new top.OpenLayers.Layer.WeMarkers("iWhere");
         this.getMap().addLayer(this.layer);
         this.layer.addMarker(this.marker);
         
-        $("#update").click((function(app){ return function() {
+        top.jQuery("#update", document).click((function(app){ return function() {
             if (app.geook) {
                 geo_position_js.getCurrentPosition(
                     app.onPosUpdate(app),
@@ -73,19 +72,19 @@ WeApp.MyApp = Weiran.Class(WeApp, {
             );
         } else {
             this.geook = false;
-            $('#info').text("Odd browser, functionality not available");
+            top.jQuery('#info', document).text("Odd browser, functionality not available");
             // positioning with geoip
             if (typeof parent.window.geoip_latitude === 'function') {
-                var lonlat = new OpenLayers.LonLat(parent.window.geoip_longitude(), parent.window.geoip_latitude());
+                var lonlat = new top.OpenLayers.LonLat(parent.window.geoip_longitude(), parent.window.geoip_latitude());
                 this.marker.updatePosition(lonlat);
                 this.getMap().panTo(lonlat.transform(this.layer.projection, this.getMap().getProjectionObject()));
                 document.getElementById('lon').innerHTML = parent.window.geoip_longitude();
                 document.getElementById('lat').innerHTML = parent.window.geoip_latitude();
                 var dt = new Date();
-                $('#time').text(dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate() + " " +
+                top.jQuery('#time', document).text(dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate() + " " +
                             dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds());
                         
-                $('#info').text('Position updated');
+                top.jQuery('#info', document).text('Position updated');
             }
         }
     },
@@ -99,7 +98,7 @@ WeApp.MyApp = Weiran.Class(WeApp, {
     },
     
     onPosUpdate: function (app) { return function(pos) {
-        var lonlat = new OpenLayers.LonLat(pos.coords.longitude, pos.coords.latitude);
+        var lonlat = new top.OpenLayers.LonLat(pos.coords.longitude, pos.coords.latitude);
         app.marker.updatePosition(lonlat);
         app.getMap().panTo(lonlat.transform(app.layer.projection, app.getMap().getProjectionObject()));
         
@@ -107,28 +106,22 @@ WeApp.MyApp = Weiran.Class(WeApp, {
         document.getElementById('lat').innerHTML = pos.coords.latitude.toFixed(6);
         
         var dt = new Date(pos.timestamp);
-        $('#time').text(dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate() + " " +
+        top.jQuery('#time', document).text(dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate() + " " +
                         dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds());
                         
-        $('#info').text('Position updated');
+        top.jQuery('#info', document).text('Position updated');
     }},
     
     onPosError: function (app) { return function(err) {
         if (err.message) {
-            $('#info').text(err.message);
+            top.jQuery('#info', document).text(err.message);
         } else {
-            $('#info').text('Failed to update position');
+            top.jQuery('#info', document).text('Failed to update position');
         }
     }},
 
     CLASS_NAME: "WeApp.MyApp"
 });
-
-$(function() {
-    var app = new WeApp.MyApp();
-    app.run();
-});
-
 </script>
 </head>
 
@@ -142,5 +135,9 @@ $(function() {
         <tr><td>latitude</td><td id='lat'></td></tr>
     </table>
     <p id="info"></p>
+<script>
+    var app = new WeApp.MyApp();
+    app.run();
+</script>
 </body>
 </html>

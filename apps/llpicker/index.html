@@ -4,7 +4,6 @@
 <title>LLPicker</title>
 <meta charset="utf-8">
 <script src="http://weapp.googlecode.com/svn/api/weapp.min.js"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
 
 <style type="text/css">
 body {
@@ -23,7 +22,7 @@ td {
 </style>
 
 <script>
-WeApp.LLPicker = Weiran.Class(WeApp, {
+WeApp.LLPicker = top.Weiran.Class(WeApp, {
 
     initialize: function (options) {
         WeApp.prototype.initialize.apply(this, arguments);
@@ -74,12 +73,6 @@ WeApp.LLPicker = Weiran.Class(WeApp, {
 
     CLASS_NAME: "WeApp.LLPicker"
 });
-
-$(function() {
-    var app = new WeApp.LLPicker();
-    app.run();
-});
-
 </script>
 </head>
 
@@ -92,5 +85,9 @@ $(function() {
             <tr><td id='x3'></td><td  id='y3'></td></tr>
             <tr><td id='x4'></td><td  id='y4'></td></tr>
     </table>
+<script>
+    var app = new WeApp.LLPicker();
+    app.run();
+</script>
 </body>
 </html>
