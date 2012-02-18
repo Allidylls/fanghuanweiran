@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Layer Manager</title>
+<title>Layer Switcher</title>
 <meta charset="utf-8">
 <script src="http://weapp.googlecode.com/svn/api/weapp.min.js"></script>
 
 <style type="text/css">
 body {
-    font-size: 14px;
+    font-size: smaller;
 }
+span:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 </style>
 
 <script>
-WeApp.Layer = top.Weiran.Class(WeApp, {
-    // {OpenLayers.Control.WeLayerSwitcher}
+WeApp.LayerSwitcher = top.Weiran.Class(WeApp, {
+    // {OpenLayers.Control.LayerSwitcher}
     layerSwitcher: null,
 
     initialize: function (options) {
@@ -23,31 +28,32 @@ WeApp.Layer = top.Weiran.Class(WeApp, {
     run: function () {
         WeApp.prototype.run.apply(this, arguments);
         
-        // create a WeLayerSwitcher control within the window
-        this.layerSwitcher = new top.OpenLayers.Control.WeLayerSwitcher();
-        this.layerSwitcher.setMap(this.getMap());
-        var div = this.layerSwitcher.draw();
-        if (div) {
-            document.body.appendChild(this.layerSwitcher.draw());
-        }
+        // create LayerSwitcher control within the window
+        this.layerSwitcher = new top.OpenLayers.Control.LayerSwitcher({
+            div: document.getElementById('layerSwitcher'),
+            roundedCorner: false
+        });
+        this.getMap().addControl(this.layerSwitcher);
     },
     
     destroy: function () {
-        // destroy the WeLayerSwitcher control
+        // destroy the LayerSwitcher control
+        this.getMap().removeControl(this.layerSwitcher);
         this.layerSwitcher.destroy();
         this.layerSwitcher = null;
         
         WeApp.prototype.destroy.apply(this, arguments);
     },
 
-    CLASS_NAME: "WeApp.Layer"
+    CLASS_NAME: "WeApp.LayerSwitcher"
 });
 </script>
 </head>
 
 <body>
+<div id="layerSwitcher"></div>
 <script>
-    var app = new WeApp.Layer();
+    var app = new WeApp.LayerSwitcher();
     app.run();
 </script>
 </body>
