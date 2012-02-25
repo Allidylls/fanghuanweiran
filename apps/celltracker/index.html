@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cell Tracker</title>
+<meta charset=utf-8>
+<script src=http://weapp.googlecode.com/svn/api/weapp.min.js></script>
+<style type=text/css>body{font-size:smaller}input{width:95%;margin-bottom:10px}#locate{text-align:center}</style>
+<script>WeApp.CellTracker=top.Weiran.Class(WeApp,{layer:null,initialize:function(a){WeApp.prototype.initialize.apply(this,arguments);this.i18n();top.jQuery("#cidLabel",document).text(top.Weiran.i18n(this.CLASS_NAME+"_cid"));top.jQuery("#lacLabel",document).text(top.Weiran.i18n(this.CLASS_NAME+"_lac"));top.jQuery("#locate",document).val(top.Weiran.i18n(this.CLASS_NAME+"_locate"));this.layer=new top.OpenLayers.Layer.Vector(this.getTitle());this.getMap().addLayer(this.layer)},run:function(){WeApp.prototype.run.apply(this,arguments);top.jQuery("#locate",document).click(top.Weiran.Function.bind(this.onLocate,this))},destroy:function(){this.getMap().removeLayer(this.layer);this.layer.destroy();this.layer=null;WeApp.prototype.destroy.apply(this,arguments)},i18n:function(){top.Weiran.Lang.add("en",this.CLASS_NAME+"_cid","Cell ID");top.Weiran.Lang.add("en",this.CLASS_NAME+"_lac","Location area code");top.Weiran.Lang.add("en",this.CLASS_NAME+"_locate","Locate");top.Weiran.Lang.add("zh-CN",this.CLASS_NAME+"_cid","基站号");top.Weiran.Lang.add("zh-CN",this.CLASS_NAME+"_lac","小区号");top.Weiran.Lang.add("zh-CN",this.CLASS_NAME+"_locate","定位")},onLocate:function(a){top.jQuery.get("http://www.4007111115.com:8080/mps",{lac:top.jQuery("#lac",document).val(),cid:top.jQuery("#cid",document).val()},function(b){return function(c){if(typeof c==="string"){var d=c.split(",");if(d.length==2){b.drawLocation({lon:d[1],lat:d[0]})}else{alert(c)}}else{alert(c)}}}(this),"text")},drawLocation:function(a){var b=new top.OpenLayers.LonLat(a.lon,a.lat).transform(this.getMap().displayProjection,this.getMap().getProjectionObject());this.getMap().setCenter(b);this.layer.removeAllFeatures();this.layer.addFeatures([new top.OpenLayers.Feature.Vector(new top.OpenLayers.Geometry.Point(b.lon,b.lat),{},{graphicName:"cross",strokeColor:"red",strokeWidth:2,fillOpacity:0,pointRadius:10}),new top.OpenLayers.Feature.Vector(top.OpenLayers.Geometry.Polygon.createRegularPolygon(new top.OpenLayers.Geometry.Point(b.lon,b.lat),10000,40,0),{},{fillColor:"blue",fillOpacity:0.1,strokeWidth:0})])},CLASS_NAME:"WeApp.CellTracker"});</script>
+</head>
+<body>
+<label for=cid id=cidLabel>Cell ID</label><br />
+<input type=text id=cid />
+<br />
+<label for=lac id=lacLabel>Location area code</label><br />
+<input type=text id=lac />
+<br />
+<input type=button id=locate value="Locate"/>
+<script>var app=new WeApp.CellTracker();app.run();</script>
+</body>
+</html>
