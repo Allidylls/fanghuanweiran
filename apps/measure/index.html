@@ -2,168 +2,19 @@
 <html>
 <head>
 <title>Measure Tools</title>
-<meta charset="utf-8">
-<script src="http://weapp.googlecode.com/svn/api/weapp.min.js"></script>
-
-<style type="text/css">
-body {
-    font-size: 14px;
-    padding: 0px;
-    text-align: center;
-}
-form {
-    text-align: center;
-}
-#result {
-    color: blue;
-}
-
-</style>
-
-<script>
-WeApp.Measure = top.Weiran.Class(WeApp, {
-    // {OpenLayers.Control.Measure}
-    measureTools: null,
-
-    initialize: function (options) {
-        WeApp.prototype.initialize.apply(this, arguments);
-    },
-
-    run: function () {
-        WeApp.prototype.run.apply(this, arguments);
-        
-        // create the measure tool
-        this.createMeasureTools();
-
-        // add event handlers to radio buttons
-        document.getElementById('line').onclick = this.toggleMeasureTool(this);
-        document.getElementById('area').onclick = this.toggleMeasureTool(this);
-    },
-    
-    createMeasureTools: function () {
-        // style the sketch fancy
-        var sketchSymbolizers = {
-            "Point": {
-                    pointRadius: 5,
-                    graphicName: "circle",
-                    strokeWidth: 1,
-                    strokeColor: "#00f",
-                    strokeOpacity: 0.9,
-                    fillColor: "#00f",
-                    fillOpacity: 0.5
-            },
-            "Line": {
-                    strokeWidth: 3,
-                    strokeColor: "#00f",
-                    strokeOpacity: 0.5
-            },
-            "Polygon": {
-                    strokeWidth: 3,
-                    strokeColor: "#00f",
-                    strokeOpacity: 0.5,
-                    fillColor: "#00f",
-                    fillOpacity: 0.2
-            }
-        };
-        var style = new top.OpenLayers.Style();
-        style.addRules([
-            new top.OpenLayers.Rule({symbolizer: sketchSymbolizers})
-        ]);
-        var styleMap = new top.OpenLayers.StyleMap({"default": style});
-        
-        // create measure controls
-        this.measureTools = {
-            line: new top.OpenLayers.Control.Measure(
-                top.OpenLayers.Handler.Path, {
-                    'geodesic': true,
-                    'persist': true, 
-                    'handlerOptions': {'layerOptions': {'styleMap': styleMap}}
-                }
-            ),
-            area: new top.OpenLayers.Control.Measure(
-                top.OpenLayers.Handler.Polygon, {
-                    'geodesic': true,
-                    'persist': true,
-                    'handlerOptions': {'layerOptions': {'styleMap': styleMap}}
-                }
-            )
-        };
-        
-        var control;
-        for(var key in this.measureTools) {
-            control = this.measureTools[key];
-            control.events.on({
-                "measure": function(evt) {this.onMeasure(evt)},
-                "measurepartial": function(evt) {this.onMeasure(evt)},
-                scope: this
-            });
-            this.getMap().addControl(control);
-        }
-    },
-    
-    toggleMeasureTool: function(app) { return function() {
-        for(key in app.measureTools) {
-            var control = app.measureTools[key];
-            if(this.value == key && this.checked) {
-                control.activate();
-                // set map cursor to crosshair
-                app.getMap().viewPortDiv.style.cursor = 'crosshair';
-            } else {
-                control.deactivate();
-            }
-        }
-        document.getElementById('result').innerHTML = '';
-    };},
-    
-    // measure event handler
-    onMeasure: function(evt) {
-        var res = "";
-        if(evt.order == 1) {
-            res = evt.measure.toFixed(6) + " " + evt.units;
-        } else {
-            res = evt.measure.toFixed(6) + " " + evt.units + "<sup>2</sup>";
-        }
-        document.getElementById('result').innerHTML = res;
-    },
-
-    destroy: function () {
-        // reset map cursor to default
-        this.getMap().viewPortDiv.style.cursor = 'default';
-        // destroy the measure
-        var control;
-        for(var key in this.measureTools) {
-            control = this.measureTools[key];
-            control.events.un({
-                "measure": function(evt) {this.onMeasure(evt)},
-                "measurepartial": function(evt) {this.onMeasure(evt)},
-                scope: this
-            });
-            this.getMap().removeControl(control);
-            control.destroy();
-            control = null;
-        }
-        this.measureTools = null;
-        
-        WeApp.prototype.destroy.apply(this, arguments);
-    },
-
-    CLASS_NAME: "WeApp.Measure"
-});
-</script>
+<meta charset=utf-8>
+<script src=http://weapp.googlecode.com/svn/api/weapp.min.js></script>
+<style type=text/css>body{font-size:smaller}label:hover{cursor:pointer;text-decoration:underline}#result{margin-top:5px;padding:2px;color:#ff4c00;border:solid 1px black}</style>
+<script>WeApp.Measure=top.Weiran.Class(WeApp,{measureTools:null,initialize:function(a){WeApp.prototype.initialize.apply(this,arguments);this.i18n();top.jQuery("#lineLabel",document).text(top.Weiran.i18n(this.CLASS_NAME+"_line"));top.jQuery("#areaLabel",document).text(top.Weiran.i18n(this.CLASS_NAME+"_area"))},run:function(){WeApp.prototype.run.apply(this,arguments);this.createMeasureTools();top.jQuery("#line, #area",document).change(this.toggleMeasureTool(this));top.jQuery("#line, #area",document).trigger("change")},i18n:function(){top.Weiran.Lang.add("en",this.CLASS_NAME+"_line","Draw a line and get its length");top.Weiran.Lang.add("en",this.CLASS_NAME+"_area","Draw a polygon and get its area");top.Weiran.Lang.add("en",this.CLASS_NAME+"_lineTitle","Measure Length");top.Weiran.Lang.add("en",this.CLASS_NAME+"_areaTitle","Measure Area");top.Weiran.Lang.add("zh-CN",this.CLASS_NAME+"_line","在地图上画条路径并测量其距离");top.Weiran.Lang.add("zh-CN",this.CLASS_NAME+"_area","在地图上画多边形并测量其面积");top.Weiran.Lang.add("zh-CN",this.CLASS_NAME+"_lineTitle","测量距离");top.Weiran.Lang.add("zh-CN",this.CLASS_NAME+"_areaTitle","测量面积")},createMeasureTools:function(){var a={Point:{pointRadius:10,graphicName:"cross",strokeWidth:1,strokeColor:"#ff4c00",strokeOpacity:1,fillOpacity:0},Line:{strokeWidth:2,strokeColor:"#ff4c00",strokeOpacity:1},Polygon:{strokeWidth:2,strokeColor:"#ff4c00",strokeOpacity:1,fillColor:"#ff4c00",fillOpacity:0.1}};var c=new top.OpenLayers.Style();c.addRules([new top.OpenLayers.Rule({symbolizer:a})]);var e=new top.OpenLayers.StyleMap({"default":c});this.measureTools={line:new top.OpenLayers.Control.Measure(top.OpenLayers.Handler.Path,{title:top.Weiran.i18n(this.CLASS_NAME+"_lineTitle"),geodesic:true,persist:true,handlerOptions:{layerOptions:{styleMap:e}}}),area:new top.OpenLayers.Control.Measure(top.OpenLayers.Handler.Polygon,{title:top.Weiran.i18n(this.CLASS_NAME+"_areaTitle"),geodesic:true,persist:true,handlerOptions:{layerOptions:{styleMap:e}}})};var d;for(var b in this.measureTools){d=this.measureTools[b];d.events.on({measure:function(f){this.onMeasure(f)},measurepartial:function(f){this.onMeasure(f)},scope:this});this.getMap().addControl(d)}},toggleMeasureTool:function(a){return function(){if(this.checked){for(var b in a.measureTools){if(this.id==b){a.measureTools[b].activate();document.getElementById("result").innerHTML=(this.id=="line")?"0.000000 m":"0.000000 m<sup>2</sup>"}else{a.measureTools[b].deactivate()}}}}},onMeasure:function(a){var b="";if(a.order==1){b=a.measure.toFixed(6)+" "+a.units}else{b=a.measure.toFixed(6)+" "+a.units+"<sup>2</sup>"}document.getElementById("result").innerHTML=b},destroy:function(){var b;for(var a in this.measureTools){b=this.measureTools[a];b.events.un({measure:function(c){this.onMeasure(c)},measurepartial:function(c){this.onMeasure(c)},scope:this});this.getMap().removeControl(b);b.destroy();b=null}this.measureTools=null;WeApp.prototype.destroy.apply(this,arguments)},onSelect:function(){WeApp.prototype.onSelect.apply(this,arguments);top.jQuery("#line, #area",document).trigger("change")},onDeselect:function(){WeApp.prototype.onDeselect.apply(this,arguments);for(key in this.measureTools){this.measureTools[key].deactivate()}},onIconize:function(){WeApp.prototype.onIconize.apply(this,arguments);for(key in this.measureTools){this.measureTools[key].deactivate()}},CLASS_NAME:"WeApp.Measure"});</script>
 </head>
-
 <body>
-    <p><form>
-        <input id='line' type='radio' name='measure' value='line' />
-        <label for='line'>Measure Length</label>
-        <input id='area' type='radio' name='measure' value='area' />
-        <label for='area'>Measure Area</label>
-    </form></p>
-    <hr />
-    <p id='result'>Measure Result</p>
-<script>
-    var app = new WeApp.Measure();
-    app.run();
-</script>
+<input type=radio name=method id=line checked=checked />
+<label for=line id=lineLabel>Measure length</label>
+<br />
+<input type=radio name=method id=area />
+<label for=area id=areaLabel>Measure area</label>
+<br />
+<p id=result>0.000000 m</p>
+<script>var app=new WeApp.Measure();app.run();</script>
 </body>
 </html>
